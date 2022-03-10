@@ -19,19 +19,12 @@ jobs:
         python-version: 3.9
     - name: Install conda environment
       run: |
-        $CONDA/bin/conda env update --file ./environment.yml --name base
-    - name: cp template files
+        $CONDA_PREFIX/bin/conda env update --file ./environment.yml --name base
+    - name: adding pyiron config file and pyiron resources dir
       run: |
-        DIR_TEMPLATES=$CONDA/share/pyiron/templates
-        echo $DIR_TEMPLATES
-        DIR_TENSILETEST=$DIR_TEMPLATES/tensiletest
-        echo $DIR_TEMPLATES
-        echo $GITHUB_WORKSPACE
-        mkdir -p $DIR_TENSILETEST
-        cp $GITHUB_WORKSPACE/script.py $DIR_TENSILETEST/.
-        cp $GITHUB_WORKSPACE/input.json $DIR_TENSILETEST/.
-        echo $DIR_TENSILETEST
-        ls -lh $DIR_TENSILETEST
+        cp .ci_support/.pyiron $GITHUB_WORKSPACE/
+        cp -r .ci_support/pyiron $GITHUB_WORKSPACE/
     - name: Run test case
       run: |
-        $CONDA/bin/python main.py
+        $CONDA_PREFIX/bin/conda activate base
+        $CONDA_PREFIX/bin/python main.py
