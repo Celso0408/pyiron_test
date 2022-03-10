@@ -30,7 +30,7 @@ jobs:
         python .ci_support/pyiron_config.py
         ls -la
         cat .pyiron
-        $CONDA/bin/conda list
+        pwd
     - name: Run test case
       shell: bash -l {0}
       run: |
