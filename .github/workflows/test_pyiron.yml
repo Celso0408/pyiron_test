@@ -30,6 +30,8 @@ jobs:
         mkdir -p $DIR_TENSILETEST
         cp $GITHUB_WORKSPACE/script.py $DIR_TENSILETEST/.
         cp $GITHUB_WORKSPACE/input.json $DIR_TENSILETEST/.
+        echo $DIR_TENSILETEST
+        ls -lh $DIR_TENSILETEST
     - name: Run test case
       run: |
         $CONDA/bin/python main.py
