@@ -22,4 +22,4 @@ jobs:
         ./make_environment.sh
     - name: Run test case
       run: |
-        python main.py
+        $CONDA/bin/python main.py
