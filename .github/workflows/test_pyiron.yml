@@ -29,7 +29,7 @@ jobs:
         cp -r .ci_support/pyiron/resources/templates $CONDA/share/pyiron/
         python .ci_support/pyiron_config.py
         ls -la
-        cat ${GITHUB_WORKSPACE}/.pyiron
+        cat .pyiron
         $CONDA/bin/conda list
     - name: Run test case
       shell: bash -l {0}
