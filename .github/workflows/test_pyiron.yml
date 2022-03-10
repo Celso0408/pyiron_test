@@ -19,11 +19,13 @@ jobs:
         python-version: 3.9
     - name: Install conda environment
       run: |
-        $CONDA_PREFIX/bin/conda env update --file ./environment.yml --name base
+        $CONDA/bin/conda env update --file ./environment.yml --name base
     - name: adding pyiron config file and pyiron resources dir
       run: |
         cp .ci_support/.pyiron $GITHUB_WORKSPACE/
         cp -r .ci_support/pyiron $GITHUB_WORKSPACE/
+        echo $GITHUB_WORKSPACE
+        ls -la $GITHUB_WORKSPACE/
     - name: Run test case
       run: |
-        $CONDA_PREFIX/bin/python main.py
+        $CONDA/bin/python main.py
