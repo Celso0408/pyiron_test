@@ -25,13 +25,11 @@ jobs:
       shell: bash -l {0}
       run: |
         echo $CONDA
-        cp -r .ci_support/pyiron .
-        cp -r .ci_support/pyiron/resources/templates $CONDA/share/pyiron/
+        cp -r .ci_support/pyiron ./
         python .ci_support/pyiron_config.py
         ls -la
-        cat .pyiron
         pwd
     - name: Run test case
       shell: bash -l {0}
       run: |
-        python test_config.py
+        python main.py
