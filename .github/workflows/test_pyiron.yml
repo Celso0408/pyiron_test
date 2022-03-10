@@ -26,5 +26,4 @@ jobs:
         cp -r .ci_support/pyiron $GITHUB_WORKSPACE/
     - name: Run test case
       run: |
-        $CONDA_PREFIX/bin/conda activate base
         $CONDA_PREFIX/bin/python main.py
