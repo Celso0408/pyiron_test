@@ -1,4 +1,11 @@
-DIR_CONDA=$(pwd)/conda-env
+#!/bin/bash
+# Absolute path to this script
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in
+SCRIPTPATH=$(dirname "$SCRIPT")
+DIR_CONDA=$SCRIPTPATH/conda-env
+
+
 if [ -d "$DIR_CONDA" ]; then
   printf "Update conda environment in ${DIR_CONDA}\n"
   conda env update --prefix $DIR_CONDA -f environment.yml --prune
@@ -9,13 +16,8 @@ fi
 
 DIR_TEMPLATES=$DIR_CONDA/share/pyiron/templates
 DIR_TENSILETEST=$DIR_TEMPLATES/tensiletest
-mkdir -p DIR_TENSILETEST
-print "$DIR_TENSILETEST"
-ls -l $DIR_TENSILETEST
-ls -l /home/runner/work/pyiron_test/pyiron_test/conda-env/share/pyiron
-ls -l /home/runner/work/pyiron_test/pyiron_test/
-
-cp script.py $DIR_TENSILETEST/.
-cp input.json $DIR_TENSILETEST/.
+mkdir -p $DIR_TENSILETEST
+cp $SCRIPTPATH/script.py $DIR_TENSILETEST/.
+cp $SCRIPTPATH/input.json $DIR_TENSILETEST/.
 
 printf "activate conda using\n   conda activate $DIR_CONDA\n"
