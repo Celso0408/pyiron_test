@@ -7,10 +7,10 @@ else
   conda env create --prefix $DIR_CONDA -f environment.yml
 fi
 
-DIR_TEMPLATES=$DIR_CONDA/share/pyiron/templates/
-DIR_TENSILETEST=$DIR_TEMPLATES/tensiletest/
+DIR_TEMPLATES=$DIR_CONDA/share/pyiron/templates
+DIR_TENSILETEST=$DIR_TEMPLATES/tensiletest
 mkdir -p DIR_TENSILETEST
-cp script.py $DIR_TENSILETEST
-cp input.json $DIR_TENSILETEST
+cp script.py $DIR_TENSILETEST/.
+cp input.json $DIR_TENSILETEST/.
 
 printf "activate conda using\n   conda activate $DIR_CONDA\n"
