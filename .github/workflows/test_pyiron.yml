@@ -5,27 +5,30 @@ name: Test case pyiron script jobs
 on: [push]
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  test_pyiron:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - uses: conda-incubator/setup-miniconda@v2
       with:
-        submodules: recursive
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Install conda environment
-      run: |
-        $CONDA/bin/conda env update --file ./environment.yml --name base
+        python-version: "3.9"
+        mamba-version: "*"
+        channels: conda-forge
+        channel-priority: strict
+        auto-update-conda: true  
+        environment-file: environment.yml
     - name: adding pyiron config file and pyiron resources dir
+      shell: bash -l {0}
       run: |
-        cp .ci_support/.pyiron $GITHUB_WORKSPACE/
-        cp -r .ci_support/pyiron $GITHUB_WORKSPACE/
-        echo $GITHUB_WORKSPACE
-        ls -la $GITHUB_WORKSPACE/
+        cp -r .ci_support/pyiron .
+        python .ci_support/pyiron_config.py
+        ls -la
+        cat .pyiron
     - name: Run test case
+      shell: bash -l {0}
       run: |
-        $CONDA/bin/python test_config.py
+        python test_config.py
