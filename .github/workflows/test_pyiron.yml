@@ -28,4 +28,4 @@ jobs:
         ls -la $GITHUB_WORKSPACE/
     - name: Run test case
       run: |
-        $CONDA/bin/python main.py
+        $CONDA/bin/python test_config.py
