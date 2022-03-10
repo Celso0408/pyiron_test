@@ -24,11 +24,13 @@ jobs:
     - name: adding pyiron config file and pyiron resources dir
       shell: bash -l {0}
       run: |
+        echo $CONDA
         cp -r .ci_support/pyiron .
-        cp -r .ci_support/pyiron/templates $CONDA/share/pyiron/
+        cp -r .ci_support/pyiron/resources/templates $CONDA/share/pyiron/
         python .ci_support/pyiron_config.py
         ls -la
         cat ${GITHUB_WORKSPACE}/.pyiron
+        $CONDA/bin/conda list
     - name: Run test case
       shell: bash -l {0}
       run: |
