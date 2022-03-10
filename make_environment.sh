@@ -10,6 +10,11 @@ fi
 DIR_TEMPLATES=$DIR_CONDA/share/pyiron/templates
 DIR_TENSILETEST=$DIR_TEMPLATES/tensiletest
 mkdir -p DIR_TENSILETEST
+print "$DIR_TENSILETEST"
+ls -l $DIR_TENSILETEST
+ls -l /home/runner/work/pyiron_test/pyiron_test/conda-env/share/pyiron
+ls -l /home/runner/work/pyiron_test/pyiron_test/
+
 cp script.py $DIR_TENSILETEST/.
 cp input.json $DIR_TENSILETEST/.
 
