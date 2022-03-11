@@ -25,7 +25,6 @@ jobs:
       shell: bash -l {0}
       run: |
         echo $CONDA
-        cp -r .ci_support/pyiron ./
         python .ci_support/pyiron_config.py
         ls -la
         pwd
