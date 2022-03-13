@@ -11,7 +11,7 @@ else
 fi
 
 printf "activate conda using\n   conda activate $DIR_CONDA\n"
-printf "afterwards create ~.pyiron_config that includes the directories with the script templates \n   python .ci_support/pyiron_config.py\n"
+printf "afterwards create ~.pyiron_config that includes the directories with the script templates \n   python pyiron/pyiron_config.py\n"
 
 
 
