@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 def main():
     top_level_path = Path.cwd()
     resource_path = top_level_path.joinpath("pyiron", "resources")
