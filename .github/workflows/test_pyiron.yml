@@ -25,7 +25,7 @@ jobs:
       shell: bash -l {0}
       run: |
         echo $CONDA
-        python .ci_support/pyiron_config.py
+        python pyiron/pyiron_config.py
         ls -la
         pwd
     - name: Run test case
