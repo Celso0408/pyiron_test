@@ -5,33 +5,30 @@ name: Test case pyiron script jobs
 on: [push]
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  test_pyiron:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - uses: conda-incubator/setup-miniconda@v2
       with:
-        submodules: recursive
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Install conda environment
+        python-version: "3.9"
+        mamba-version: "*"
+        channels: conda-forge
+        channel-priority: strict
+        auto-update-conda: true  
+        environment-file: environment.yml
+    - name: adding pyiron config file and pyiron resources dir
+      shell: bash -l {0}
       run: |
-        $CONDA/bin/conda env update --file ./environment.yml --name base
-    - name: cp template files
-      run: |
-        DIR_TEMPLATES=$CONDA/share/pyiron/templates
-        echo $DIR_TEMPLATES
-        DIR_TENSILETEST=$DIR_TEMPLATES/tensiletest
-        echo $DIR_TEMPLATES
-        echo $GITHUB_WORKSPACE
-        mkdir -p $DIR_TENSILETEST
-        cp $GITHUB_WORKSPACE/script.py $DIR_TENSILETEST/.
-        cp $GITHUB_WORKSPACE/input.json $DIR_TENSILETEST/.
-        echo $DIR_TENSILETEST
-        ls -lh $DIR_TENSILETEST
+        echo $CONDA
+        python pyiron/pyiron_config.py
+        ls -la
+        pwd
     - name: Run test case
+      shell: bash -l {0}
       run: |
-        $CONDA/bin/python main.py
+        python main.py
