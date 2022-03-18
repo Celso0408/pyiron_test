@@ -17,9 +17,13 @@ conda activate ./conda-env
 ```
 and execute the script that creates a "~.pyiron" config file with the 
 information where the scripts for the new script jobs are located.
+
 ```
-python pyiron/pyiron_config.py
+python ./local_config.py
 ```
+
+Then copy the `./pyiron/resources/templates/TensileTest` to `~/pyiron/resources/templates/`
+
 
 # Usage
 script jobs have to be added to the resources/templates directory. Just add 
