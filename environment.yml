@@ -3,6 +3,7 @@ channels:
 dependencies:
 - python=3.9
 - pyiron_base=0.5.7
-- fenics =2019.1.0
-- mshr =2019.1.0
+- fenics=2019.1.0
+- mshr=2019.1.0
 - pyiron-data=0.0.17
+- pytest
