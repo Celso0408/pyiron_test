@@ -31,4 +31,4 @@ jobs:
     - name: Run test case
       shell: bash -l {0}
       run: |
-        python main.py
+        pytest

@@ -25,7 +25,8 @@ class FenicsYoungsModulusTestSimulation():
                             inp['radius'] Radius of test cylinder in mm
                             inp['diameter'] Diameter of test cylinder in mm
                         optional (if both are passed displacements are used):
-                          inp['displ'] A list with all displ to be applied
+                          inp['displ'] A list with all vertical displ to be
+                          applied at the top (generates multiple outputs)
                           inp['strains'] A list with all strains to be applied
 
                 Output
