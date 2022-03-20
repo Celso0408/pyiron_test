@@ -45,7 +45,7 @@ def test_FEniCS_elasticity():
 
 
 if __name__ == "__main__":
-    unittest.main()
+    test_FEniCS_elasticity()
 
 
 
