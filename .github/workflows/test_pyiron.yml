@@ -32,3 +32,4 @@ jobs:
       shell: bash -l {0}
       run: |
         pytest
+        python main.py
