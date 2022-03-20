@@ -20,6 +20,7 @@ class FenicsYoungsModulusTestSimulation():
                         inp['E'] Young's modulus for simulation
                         inp['nu'] Poisson's ratio for simulation
                         inp['height'] Height of test cylinder in mm
+                        inp['mesh_density'] mesh density
                         optional:
                             inp['area'] crossection of test cylinder in mm^2
                             inp['radius'] Radius of test cylinder in mm
@@ -49,7 +50,7 @@ class FenicsYoungsModulusTestSimulation():
         # Define and check inputs
         E = inp['E']                    # Youngs modulus
         nu = inp['nu']                  # Poisson's ratio, this can't be calibrated based on this test
-        mesh_density = 10                # Parameter for mesh generation
+        mesh_density = inp['mesh_density'] # Parameter for mesh generation
         height = inp['height']          # Height of test cylinder in mm
 
         # compute radius, this allows area as input to check the resulting force/stress more intuitively
@@ -85,7 +86,7 @@ class FenicsYoungsModulusTestSimulation():
         mesh = generate_mesh(cylinder_geometry, mesh_density)
 
         # Create function space
-        V = VectorFunctionSpace(mesh, "Lagrange", 2)  # 2 for quadratic elements
+        V = VectorFunctionSpace(mesh, "Lagrange", 1)  # 2 for quadratic elements
 
         # define surfaces
         def bottom_surface(x, on_boundary):
@@ -153,8 +154,9 @@ class FenicsYoungsModulusTestSimulation():
             # compute stress by dividing reaction forces by (approximeted) area
             computed_stress.append(computed_force[-1]/(np.pi*radius**2))
 
-        response = {'stress' : computed_stress,
-                     'force' : computed_force}
+        response = {'stress': computed_stress,
+                     'force': computed_force,
+                     'nDOF': V.dim()}
 
         return response
 

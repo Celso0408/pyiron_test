@@ -14,8 +14,9 @@ def test_FEniCS_elasticity():
     #print(job.input)
     job.input.height = 0.1
     job.input.area = 0.1 #automatically computes the diameter
-    job.input.E = 1
+    job.input.E = 10
     job.input.nu = 0
+    job.input.mesh_density = 10
     job.input.displ = [0, -1, -2]
     # job.input[key] = new_value
     # Then you can run the job by
@@ -24,13 +25,24 @@ def test_FEniCS_elasticity():
     #print(job["output"].to_object().to_builtin())
     output = job["output"].to_object().to_builtin()
 
-    exact_output_stress = (job.input.E/job.input.height)*\
-        np.array(job.input.displ)
-    np.testing.assert_array_equal(output['stress'], exact_output_stress)
+    # print("number of dofs", output['nDOF'])
+    # This is due to the fact that the round circle is not exactly
+    # round due to the linear geometry modelling in FEniCS
+    scaling_factor = .9892183817163186
+    #print("stress", output['stress'])
 
-    exact_output_force = (job.input.E*job.input.area/job.input.height)*\
-                         np.array(job.input.displ)
-    np.testing.assert_array_equal(output['force'], exact_output_force)
+    exact_output_stress = scaling_factor*(
+            job.input.E/job.input.height) *\
+            np.array(job.input.displ)
+    np.testing.assert_array_almost_equal(output['stress'],
+                                         exact_output_stress, 8)
+
+    #print("force", output['force'])
+    exact_output_force = scaling_factor*(
+            job.input.E*job.input.area/job.input.height) *\
+            np.array(job.input.displ)
+    np.testing.assert_array_almost_equal(output['force'], exact_output_force, 8)
+
 
 if __name__ == "__main__":
     unittest.main()
